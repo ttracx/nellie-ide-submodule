@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "ES2021"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noEmitOnError": false,
+    "types": ["jest", "node", "vscode"],
+    "baseUrl": ".",
+    "paths": {
+      "vscode": ["../extensions/vscode/node_modules/vscode"]
+    }
+  },
+  "include": ["./**/*.ts", "./**/*.js", "./**/*.d.ts"],
+  "exclude": ["dist"],
+  "typeRoots": [
+    "./node_modules/@types",
+    "../extensions/vscode/node_modules/@types"
+  ],
+
+}

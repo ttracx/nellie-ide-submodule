@@ -1,0 +1,807 @@
+{
+  "_comment": "This file has been modified significantly from its original contents. New commands have been added, and there has been renaming from Continue to Nellie IDE. nellie-submodule is a fork of Continue (https://github.com/continuedev/continue).",
+  "name": "nellie-ide",
+  "publisher": "nellieide",
+  "icon": "media/icon.png",
+  "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nellie-ai/nellie-ide-submodule"
+  },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "bugs": {
+    "url": "https://github.com/nellie-ai/nellie-ide-app/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./out/index.d.ts",
+      "default": "./out/extension.js"
+    }
+  },
+  "homepage": "https://nellie.ai",
+  "qna": "https://github.com/nellie-ai/nellie-ide-app/issues/new/choose",
+  "displayName": "Nellie IDE",
+  "license": "Apache-2.0",
+  "pricing": "Free",
+  "description": "Supercharge your development with AI",
+  "engines": {
+    "vscode": "^1.70.0",
+    "node": ">=20.18.0"
+  },
+  "engine-strict": true,
+  "galleryBanner": {
+    "color": "#1E1E1E",
+    "theme": "dark"
+  },
+  "categories": [
+    "AI",
+    "Chat",
+    "Programming Languages",
+    "Education",
+    "Machine Learning",
+    "Snippets"
+  ],
+  "keywords": [
+    "chatgpt",
+    "github",
+    "copilot",
+    "claude",
+    "sonnet",
+    "mistral",
+    "codestral",
+    "codegpt",
+    "ai",
+    "llama"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "browser": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "filenames": [
+          "config.json",
+          ".nellierc.json"
+        ],
+        "id": "jsonc"
+      }
+    ],
+    "configuration": {
+      "title": "Nellie IDE",
+      "properties": {
+        "nellie.telemetryEnabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Nellie IDE collects anonymous usage data, cleaned of PII, to help us improve the product for our users. Read more  at [nellie.dev › Telemetry](https://nellie.ai/telemetry)."
+        },
+        "nellie.enableContinueForTeams": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "_(Requires window reload)_ Enable Nellie IDE for teams beta features. To sign in, click the person icon in the bottom right of the sidebar."
+        },
+        "nellie.showInlineTip": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inline suggestion to use the Nellie IDE keyboard shortcuts (e.g. \"Cmd/Ctrl L to select code, Cmd/Ctrl I to edit\")."
+        },
+        "nellie.enableQuickActions": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Enable the experimental Quick Actions feature. Read our walkthrough to learn about configuration and how to share feedback: [nellie.dev › Walkthrough: Quick Actions (experimental)](https://nellie.ai/features/quick-actions)"
+        },
+        "nellie.enableTabAutocomplete": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Enable Nellie IDE's tab autocomplete feature. Read our walkthrough to learn about configuration and how to share feedback: [nellie.dev › Walkthrough: Tab Autocomplete (beta)](https://nellie.ai/docs/tab-autocomplete)"
+        },
+        "nellie.pauseTabAutocompleteOnBattery": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Pause Nellie IDE's tab autocomplete feature when your battery is low."
+        },
+        "nellie.pauseCodebaseIndexOnStart": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Pause Nellie IDE's codebase index on start."
+        },
+        "nellie.enableDebugLogs": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Enable Nellie IDE Debug Logs in the Output panel."
+        },
+        "nellie.remoteConfigServerUrl": {
+          "type": "string",
+          "default": null,
+          "markdownDescription": "If your team is set up to use shared configuration, enter the server URL here and your user token below to enable automatic syncing."
+        },
+        "nellie.userToken": {
+          "type": "string",
+          "default": null,
+          "markdownDescription": "If your team is set up to use shared configuration, enter your user token here and your server URL above to enable automatic syncing."
+        },
+        "nellie.remoteConfigSyncPeriod": {
+          "type": "number",
+          "default": 60,
+          "description": "The period of time in minutes between automatic syncs."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "nellie.acceptDiff",
+        "category": "Nellie IDE",
+        "title": "Accept Diff",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.rejectDiff",
+        "category": "Nellie IDE",
+        "title": "Reject Diff",
+        "group": "Nellie IDE",
+        "icon": "$(stop)"
+      },
+      {
+        "command": "nellie.acceptVerticalDiffBlock",
+        "category": "Nellie IDE",
+        "title": "Accept Vertical Diff Block",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.rejectVerticalDiffBlock",
+        "category": "Nellie IDE",
+        "title": "Reject Vertical Diff Block",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.quickEdit",
+        "category": "Nellie IDE",
+        "title": "Generate Code",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.toggleCreator",
+        "category": "Nellie IDE",
+        "title": "Toggle Nellie IDE Creator",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.toggleSearch",
+        "category": "Nellie IDE",
+        "title": "Toggle Nellie IDE Search",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.toggleMem0",
+        "category": "Nellie IDE",
+        "title": "Toggle Nellie IDE Memory",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.toggleInventorySettings",
+        "category": "Nellie IDE",
+        "title": "Toggle Nellie IDE Inventory",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.startOnboarding",
+        "category": "Nellie IDE Developer",
+        "title": "Start Nellie IDE Onboarding",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.developer.restFirstLaunch",
+        "category": "Nellie IDE Developer",
+        "title": "Reset Nellie IDE Onboarding",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.focusAgentView",
+        "category": "Nellie IDE",
+        "title": "Focus Nellie IDE Agent View",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.focusNellie IDESearchView",
+        "category": "Nellie IDE",
+        "title": "Focus Nellie IDE Search View",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.focusNellie IDEMem0View",
+        "category": "Nellie IDE",
+        "title": "Focus Nellie IDE Memory View",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.focusContinueInput",
+        "category": "Nellie IDE",
+        "title": "Add Highlighted Code to Context",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.focusContinueInputWithoutClear",
+        "category": "Nellie IDE",
+        "title": "Add Highlighted Code to Context",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.debugTerminal",
+        "category": "Nellie IDE",
+        "title": "Nellie IDE: Debug Terminal",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.toggleFullScreen",
+        "category": "Nellie IDE",
+        "title": "Toggle Full Screen",
+        "icon": "$(fullscreen)",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.openConfigJson",
+        "category": "Nellie IDE",
+        "title": "Open config.json",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.openPearAiWelcome",
+        "category": "Nellie IDE",
+        "title": "Open Welcome page for Nellie IDE",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.toggleTabAutocompleteEnabled",
+        "category": "Nellie IDE",
+        "title": "Toggle Autocomplete Enabled",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.selectFilesAsContext",
+        "category": "Nellie IDE",
+        "title": "Nellie IDE: Select Files as Context",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.newSession",
+        "category": "Nellie IDE",
+        "title": "New Session",
+        "icon": "$(add)",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.newSessionSearch",
+        "category": "Nellie IDE",
+        "title": "New Search Session",
+        "icon": "$(add)",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.viewHistory",
+        "category": "Nellie IDE",
+        "title": "View History",
+        "icon": "$(history)",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.viewHistorySearch",
+        "category": "Nellie IDE",
+        "title": "View Search History",
+        "icon": "$(history)",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.writeCommentsForCode",
+        "category": "Nellie IDE",
+        "title": "Write Comments for this Code",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.writeDocstringForCode",
+        "category": "Nellie IDE",
+        "title": "Write a Docstring for this Code",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.fixCode",
+        "category": "Nellie IDE",
+        "title": "Fix this Code",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.optimizeCode",
+        "category": "Nellie IDE",
+        "title": "Optimize this Code",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.fixGrammar",
+        "category": "Nellie IDE",
+        "title": "Fix Grammar / Spelling",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.codebaseForceReIndex",
+        "category": "Nellie IDE",
+        "title": "Codebase Force Re-Index",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.docsIndex",
+        "category": "Nellie IDE",
+        "title": "Docs Index",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.docsReIndex",
+        "category": "Nellie IDE",
+        "title": "Docs Force Re-Index",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.login",
+        "category": "Nellie IDE",
+        "title": "Login to Nellie IDE",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.logout",
+        "category": "Nellie IDE",
+        "title": "Logout of Nellie IDE",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.manualLogin",
+        "category": "Nellie IDE Developer",
+        "title": "Manual Nellie IDE Login",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.loadRecentChat",
+        "category": "Nellie IDE",
+        "title": "Load Recent Chat",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.resizeAuxiliaryBarWidth",
+        "category": "Nellie IDE",
+        "title": "Resize Chat",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.macResizeAuxiliaryBarWidth",
+        "category": "Nellie IDE",
+        "title": "Big Chat - CMD + [",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.winResizeAuxiliaryBarWidth",
+        "category": "Nellie IDE",
+        "title": "Big Chat - CTRL + [",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.patchWSL",
+        "category": "Shell",
+        "title": "Patch WSL",
+        "group": "Shell"
+      },
+      {
+        "command": "nellie.perplexityMode",
+        "category": "Nellie IDE",
+        "title": "Open Nellie IDE Search",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.showInteractiveContinueTutorial",
+        "category": "Nellie IDE",
+        "title": "Show Chat Tutorial",
+        "group": "Nellie IDE"
+      },
+      {
+        "command": "nellie.notifyOverlayOpened",
+        "title": "Dev - Overlay Opened",
+        "group": "Nellie IDE"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "nellie.toggleOverlay",
+        "mac": "cmd+e",
+        "key": "ctrl+e"
+      },
+      {
+        "command": "nellie.toggleInventorySettings",
+        "mac": "cmd+shift+1",
+        "key": "ctrl+shift+1"
+      },
+      {
+        "command": "nellie.toggleCreator",
+        "mac": "cmd+1",
+        "key": "ctrl+1"
+      },
+      {
+        "command": "nellie.toggleSearch",
+        "mac": "cmd+2",
+        "key": "ctrl+2"
+      },
+      {
+        "command": "nellie.toggleMem0",
+        "mac": "cmd+3",
+        "key": "ctrl+4"
+      },
+      {
+        "command": "nellie.focusContinueInputWithoutClear",
+        "mac": "cmd+shift+l",
+        "key": "ctrl+shift+l"
+      },
+      {
+        "command": "nellie.toggleAuxiliaryBar",
+        "mac": "alt+cmd+l",
+        "key": "alt+ctrl+l"
+      },
+      {
+        "command": "nellie.acceptDiff",
+        "mac": "shift+cmd+enter",
+        "key": "shift+ctrl+enter"
+      },
+      {
+        "command": "nellie.rejectDiff",
+        "mac": "shift+cmd+backspace",
+        "key": "shift+ctrl+backspace"
+      },
+      {
+        "command": "nellie.rejectDiff",
+        "mac": "cmd+z",
+        "key": "ctrl+z",
+        "when": "nellie.diffVisible"
+      },
+      {
+        "command": "nellie.quickEditHistoryUp",
+        "mac": "up",
+        "key": "up",
+        "when": "false && nellie.quickEditHistoryFocused"
+      },
+      {
+        "command": "nellie.quickEditHistoryDown",
+        "mac": "down",
+        "key": "down",
+        "when": "false && nellie.quickEditHistoryFocused"
+      },
+      {
+        "command": "nellie.acceptVerticalDiffBlock",
+        "mac": "alt+cmd+y",
+        "key": "alt+ctrl+y"
+      },
+      {
+        "command": "nellie.rejectVerticalDiffBlock",
+        "mac": "alt+cmd+n",
+        "key": "alt+ctrl+n"
+      },
+      {
+        "command": "nellie.quickEdit",
+        "mac": "cmd+i",
+        "key": "ctrl+i"
+      },
+      {
+        "command": "nellie.debugTerminal",
+        "mac": "cmd+shift+r",
+        "key": "ctrl+shift+r"
+      },
+      {
+        "command": "nellie.toggleFullScreen",
+        "mac": "cmd+k cmd+m",
+        "key": "ctrl+k ctrl+m",
+        "when": "!terminalFocus"
+      },
+      {
+        "command": "nellie.toggleTabAutocompleteEnabled",
+        "mac": "cmd+k cmd+a",
+        "key": "ctrl+k ctrl+a",
+        "when": "!terminalFocus"
+      },
+      {
+        "command": "nellie.loadRecentChat",
+        "mac": "cmd+0",
+        "key": "ctrl+0"
+      },
+      {
+        "command": "nellie.resizeAuxiliaryBarWidth",
+        "mac": "cmd+\\",
+        "key": "ctrl+\\"
+      },
+      {
+        "command": "nellie.viewHistory",
+        "mac": "cmd+h",
+        "key": "ctrl+h"
+      }
+    ],
+    "submenus": [
+      {
+        "id": "nellie.continueSubMenu",
+        "label": "Nellie IDE"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "nellie.quickEdit"
+        },
+        {
+          "command": "nellie.toggleCreator"
+        },
+        {
+          "command": "nellie.toggleSearch"
+        },
+        {
+          "command": "nellie.toggleInventorySettings"
+        },
+        {
+          "command": "nellie.focusContinueInput"
+        },
+        {
+          "command": "nellie.focusContinueInputWithoutClear"
+        },
+        {
+          "command": "nellie.debugTerminal"
+        },
+        {
+          "command": "nellie.toggleFullScreen"
+        },
+        {
+          "command": "nellie.newSession"
+        },
+        {
+          "command": "nellie.showInteractiveContinueTutorial"
+        }
+      ],
+      "editor/context": [
+        {
+          "submenu": "nellie.continueSubMenu",
+          "group": "0_acontinue"
+        }
+      ],
+      "editor/title/run": [
+        {
+          "command": "nellie.rejectDiff",
+          "group": "Nellie IDE",
+          "when": "nellie.streamingDiff"
+        }
+      ],
+      "nellie.continueSubMenu": [
+        {
+          "command": "nellie.focusContinueInputWithoutClear",
+          "group": "Nellie IDE",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "nellie.writeCommentsForCode",
+          "group": "Nellie IDE",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "nellie.writeDocstringForCode",
+          "group": "Nellie IDE",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "nellie.fixCode",
+          "group": "Nellie IDE",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "nellie.optimizeCode",
+          "group": "Nellie IDE",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "nellie.fixGrammar",
+          "group": "Nellie IDE",
+          "when": "editorHasSelection && editorLangId == 'markdown'"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "nellie.selectFilesAsContext",
+          "group": "1_debug@1"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "nellie.newSession",
+          "group": "navigation@1",
+          "when": "view == nellie.chatView"
+        },
+        {
+          "command": "nellie.newSessionSearch",
+          "group": "navigation@1",
+          "when": "view == nellie.searchView"
+        },
+        {
+          "command": "nellie.toggleFullScreen",
+          "group": "navigation@1",
+          "when": "view == nellie.chatView"
+        },
+        {
+          "command": "nellie.viewHistory",
+          "group": "navigation@1",
+          "when": "view == nellie.chatView"
+        },
+        {
+          "command": "nellie.viewHistorySearch",
+          "group": "navigation@1",
+          "when": "view == nellie.searchView"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "nellie.toggleFullScreen",
+          "group": "navigation@1",
+          "when": "activeWebviewPanelId == nellie.chatView || activeWebviewPanelId == nellie.searchView"
+        }
+      ],
+      "terminal/context": [
+        {
+          "command": "nellie.debugTerminal",
+          "group": "navigation@top"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "auxiliarybar": [
+        {
+          "id": "nellieChat",
+          "title": "Nellie IDE Chat",
+          "icon": "media/sidebar-icon.png"
+        },
+        {
+          "id": "nellieSearch",
+          "title": "Nellie IDE Search",
+          "icon": "media/sidebar-icon.png"
+        },
+        {
+          "id": "nellieMemory",
+          "title": "Nellie IDE Memory",
+          "icon": "media/sidebar-icon.png"
+        }
+      ]
+    },
+    "views": {
+      "nellieChat": [
+        {
+          "type": "webview",
+          "id": "nellie.chatView",
+          "name": "Nellie IDE Chat",
+          "visibility": "visible"
+        }
+      ],
+      "nellieSearch": [
+        {
+          "type": "webview",
+          "id": "nellie.searchView",
+          "name": "Nellie IDE Search",
+          "visibility": "visible"
+        }
+      ],
+      "nellieMemory": [
+        {
+          "type": "webview",
+          "id": "nellie.mem0View",
+          "name": "Nellie IDE Memory",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": "config.json",
+        "url": "./config_schema.json"
+      },
+      {
+        "fileMatch": ".nellierc.json",
+        "url": "./continue_rc_schema.json"
+      }
+    ]
+  },
+  "scripts": {
+    "esbuild-base": "node scripts/esbuild.js",
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "tsc": "tsc -p ./",
+    "tsc-watch": "tsc -watch -p ./",
+    "rebuild": "electron-rebuild -v 19.1.8 node-pty",
+    "lint": "eslint src --ext ts",
+    "build-test": "npm run esbuild && node esbuild.test.mjs",
+    "test": "npm run build-test && node ./out/runTestOnVSCodeHost.js",
+    "quick-test": "npm run build-test && node ./out/runTestOnVSCodeHost.js",
+    "prepackage": "node scripts/prepackage.js",
+    "package": "node scripts/package.js",
+    "package-all": "node scripts/package-all.js",
+    "package:pre-release": "node scripts/package.js --pre-release",
+    "build:rust": "cargo-cp-artifact -ac sync sync.node -- cargo build --manifest-path ../../sync/Cargo.toml --message-format=json-render-diagnostics",
+    "build-debug:rust": "npm run build:rust --",
+    "build-release:rust": "npm run build:rust -- --release"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.6.4",
+    "@nestjs/common": "^8.4.7",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/follow-redirects": "^1.14.4",
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.17.30",
+    "@types/react-dom": "^18.2.4",
+    "@types/request": "^2.48.8",
+    "@types/vscode": "1.70",
+    "@types/ws": "^8.5.4",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/vsce": "^2.22.0",
+    "cargo-cp-artifact": "^0.1",
+    "esbuild": "0.17.19",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "json-schema-to-typescript": "^12.0.0",
+    "mocha": "^10.4.0",
+    "ovsx": "^0.8.3",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "vite": "^4.3.9",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "@electron/rebuild": "^3.2.10",
+    "@reduxjs/toolkit": "^1.9.3",
+    "@types/node-fetch": "^2.6.11",
+    "@types/uuid": "^9.0.8",
+    "@vscode/ripgrep": "^1.15.9",
+    "@vscode/test-electron": "^2.3.9",
+    "axios": "^1.2.5",
+    "core": "file:../../core",
+    "cors": "^2.8.5",
+    "dbinfoz": "^0.1.4",
+    "downshift": "^7.6.0",
+    "esbuild": "^0.17.19",
+    "express": "^4.18.2",
+    "fkill": "^8.1.0",
+    "follow-redirects": "^1.15.4",
+    "handlebars": "^4.7.8",
+    "highlight.js": "^11.7.0",
+    "highlightable": "^1.3.0-beta.0",
+    "http-proxy": "^1.18.1",
+    "http-proxy-agent": "^7.0.0",
+    "http-proxy-middleware": "^2.0.6",
+    "https-proxy-agent": "^7.0.2",
+    "ignore": "^5.3.0",
+    "jsdom": "^24.0.0",
+    "minisearch": "^7.0.0",
+    "monaco-editor": "^0.45.0",
+    "monaco-vscode-textmate-theme-converter": "^0.1.7",
+    "ncp": "^2.0.0",
+    "node-fetch": "^3.3.2",
+    "node-machine-id": "^1.1.12",
+    "posthog-node": "^3.6.3",
+    "react-markdown": "^8.0.7",
+    "react-redux": "^8.0.5",
+    "read-last-lines": "^1.8.0",
+    "request": "^2.88.2",
+    "socket.io-client": "^4.7.2",
+    "strip-ansi": "^7.1.0",
+    "systeminformation": "^5.22.10",
+    "tailwindcss": "^3.3.2",
+    "undici": "^6.2.0",
+    "uuid": "^9.0.1",
+    "uuidv4": "^6.2.13",
+    "vectordb": "^0.4.20",
+    "vscode-languageclient": "^8.0.2",
+    "ws": "^8.13.0",
+    "yarn": "^1.22.21"
+  }
+}
