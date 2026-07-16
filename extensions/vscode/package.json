@@ -730,7 +730,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.6.4",
     "@nestjs/common": "^8.4.7",
-    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@openapitools/openapi-generator-cli": "^2.39.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/follow-redirects": "^1.14.4",
@@ -749,7 +749,7 @@
     "eslint": "^8.28.0",
     "glob": "^8.0.3",
     "json-schema-to-typescript": "^12.0.0",
-    "mocha": "^10.4.0",
+    "mocha": "^10.8.2",
     "ovsx": "^0.8.3",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3",
@@ -794,14 +794,14 @@
     "request": "^2.88.2",
     "socket.io-client": "^4.7.2",
     "strip-ansi": "^7.1.0",
-    "systeminformation": "^5.22.10",
+    "systeminformation": "^5.31.7",
     "tailwindcss": "^3.3.2",
-    "undici": "^6.2.0",
+    "undici": "^6.27.0",
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13",
     "vectordb": "^0.4.20",
     "vscode-languageclient": "^8.0.2",
-    "ws": "^8.13.0",
+    "ws": "^8.21.1",
     "yarn": "^1.22.21"
   }
 }
