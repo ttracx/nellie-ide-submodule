@@ -1,8 +1,12 @@
 {
-  "exclusions": [
+  "ignoredFiles": [
     "docs/**",
+    "**/docs/**",
     "extensions/**",
+    "**/extensions/**",
     "gui/**",
-    "media/**"
+    "**/gui/**",
+    "media/**",
+    "**/media/**"
   ]
 }
