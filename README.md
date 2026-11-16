@@ -1,6 +1,10 @@
 
 # Nellie IDE Submodule / Extension (Fork of [Continue](https://github.com/continuedev/continue))
 
+![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
+![THOX.ai](https://img.shields.io/badge/THOX.ai-LLC-red.svg)
+![Repository](https://img.shields.io/badge/repository-ttracx%2Fnellie--ide--submodule-0B1220)
+
 This is the source code for the bulk of Nellie IDE's functionality, which is bundled as a VSCode / Nellie IDE extension. It is a fork of [Continue](https://github.com/continuedev/continue).
 
 ## Contributing
